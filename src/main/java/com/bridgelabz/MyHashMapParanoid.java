@@ -45,6 +45,18 @@ public class MyHashMapParanoid<K, V>
             myMapNode.setValue(value);
         }
     }
+    public void remove(K key) {
+        int index = this.getBucketIndex(key);
+        MyLinkedList<K> myLinkedList = this.myBucketArray.get(index);
+        if (myLinkedList == null)
+            myLinkedList = new MyLinkedList<>();
+        this.myBucketArray.set(index, null);
+        MyMapNode<K, V> myMapNode = (MyMapNode<K, V>) myLinkedList.search(key);
+        if (myMapNode == key) {
+            myMapNode = new MyMapNode<K, V>(key, myMapNode.value);
+            myLinkedList.pop(myMapNode);
+        }
+    }
 
 
     @Override
