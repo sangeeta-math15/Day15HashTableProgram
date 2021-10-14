@@ -27,4 +27,25 @@ public class MyHashMapTest {
         System.out.println(myHashMap);
         Assertions.assertEquals(2, frequency);
     }
+
+    @Test
+    public void givenSentence_whenWordsAreAddedToList_shouldReturnParanoidWordFrequency()
+    {
+        String sentence="Paranoids are not paranoid because they are paranoid but " + "because they keep putting themselves deliberately " +
+                        "into paranoid avoidable situations";
+        MyHashMapParanoid<String,Integer> myHashMapParanoid=new MyHashMapParanoid<>();
+        String[] words=sentence.toLowerCase().split(" ");
+        for(String word:words)
+        {
+            Integer value=myHashMapParanoid.get(word);
+            if(value==null)
+                value=1;
+            else
+                value+=1;
+            myHashMapParanoid.add(word,value);
+        }
+        System.out.println(myHashMapParanoid);
+        int frequency=myHashMapParanoid.get("paranoid");
+        Assertions.assertEquals(3,frequency);
+    }
 }
